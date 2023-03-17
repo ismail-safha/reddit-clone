@@ -1,109 +1,107 @@
-import Link from "next/link";
-import React, { useState } from "react";
+import Image from "next/image";
+import React from "react";
+
+import {
+  ChevronDown,
+  Home,
+  Search,
+  SparklesOutline,
+  GlobeOutline,
+  VideoCameraOutline,
+  ChatOutline,
+  BellOutline,
+  PlusOutline,
+  SpeakerphoneOutline,
+  Menu,
+  XOutline,
+} from "heroicons-react";
+import { ChevronDownIcon, HomeIcon } from "@heroicons/react/24/solid";
+
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
-  const [navbar, setNavbar] = useState(false);
-  return (
-    <header>
-      <nav className="w-full bg-white shadow">
-        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-          <div>
-            <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <Link href="/">
-                <h2 className="text-2xl font-bold  text-green-700">LOGO</h2>
-              </Link>
-              <div className="md:hidden">
-                <button
-                  className="p-2 text-gray-700 rounded-md outline-none focus:border"
-                  onClick={() => setNavbar(!navbar)}
-                >
-                  {navbar ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6 text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6 text-green-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-                navbar ? "block" : "hidden"
-              }`}
-            >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className=" text-green-500 hover:text-gray-800">
-                  <Link href="/search">Search</Link>
-                </li>
-                <li className=" text-gray-800 hover:text-green-500">
-                  <Link href="customers">Customers</Link>
-                </li>
-                <li className=" text-gray-800 hover:text-green-500">
-                  <Link href="grading">Grading Requests</Link>
-                </li>
-                <li className=" text-gray-800 hover:text-green-500">
-                  <Link href="/">Invoices</Link>
-                </li>
-              </ul>
+  const { data: session } = useSession();
 
-              <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-                <Link
-                  href="/"
-                  className="inline-block w-full px-4 py-2 text-center  text-green-500 bg-gray-600 rounded-md shadow hover:bg-gray-800"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  href="/"
-                  className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-green-500 rounded-md shadow hover:bg-gray-100"
-                >
-                  Sign up
-                </Link>
-              </div>
-            </div>
+  return (
+    <header className=" static top-0 z-50 flex bg-white px-4 py-2 shadow-sm">
+      <div className="relative h-10 w-20 flex-shrink-0 cursor-pointer">
+        <Image
+          src="/reddit-favicon.png"
+          alt=""
+          objectFit="contain"
+          layout="fill"
+        />
+      </div>
+      <div className=" mx-7 flex items-center xl:min-w-[300px]">
+        <HomeIcon className="h-5 w-5" />
+        <p className="ml-2 hidden flex-1 lg:inline">Home</p>
+        <ChevronDownIcon className="h-5 w-5" />
+      </div>
+      {/* search box */}
+      <form className="form flex flex-1 items-center space-x-2 border rounded-sm bg-gray-100 px-3 py-1  z-50 ml-14 mb:hidden lg:ml-0">
+        <Search className="w-6 h-6 text-gray-400" />
+        <input
+          className="flex-1 bg-transparent outline-none w-full mb:ml-4 "
+          type="text"
+          placeholder="Search Reddit"
+        />
+        <button type="submit"></button>
+      </form>
+      <div className="  mx-5 hidden items-center space-x-2 text-gray-500 lg:inline-flex">
+        <SparklesOutline className="icon" />
+        <GlobeOutline className="icon" />
+        <VideoCameraOutline className="icon" />
+        <hr className="h-10 border border-gray-100 dark:border-gray-800" />
+        <ChatOutline className="icon" />
+        <BellOutline className="icon" />
+        <PlusOutline className="icon" />
+        <SpeakerphoneOutline className="icon" />
+      </div>
+      {/* mobile */}
+      <div className="ml-5 flex items-center lg:hidden">
+        <Menu className="icon w-8 " />
+      </div>
+      {/* sign in / sign out button */}
+
+      {session ? (
+        <div
+          onClick={() => signOut()}
+          className="cursor-pointer hidden items-center space-x-2 border border-gray-100 p-2 lg:flex"
+        >
+          <div className=" relative h-5 w-5 flex-shrink-0 p-3 bg-gray-100 rounded-md">
+            <Image
+              src="https://links.papareact.com/23l"
+              layout="fill"
+              objectFit="contain"
+              alt=""
+            />
           </div>
-          <div className="hidden space-x-2 md:inline-block">
-            <Link
-              href="/"
-              className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-gray-800"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/"
-              className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-            >
-              Sign up
-            </Link>
+
+          <div className="flex-1 text-xs ">
+            <p className="truncate">{session.user?.name}</p>
+            <p className=" text-gray-400">1 Karma</p>
           </div>
+
+          <ChevronDown className="h-5 flex-shrink-0 text-gray-400" />
         </div>
-      </nav>
+      ) : (
+        <div
+          onClick={() => signIn()}
+          className="cursor-pointer hidden items-center space-x-2 border border-gray-100 p-2 lg:flex"
+        >
+          <div className=" relative h-5 w-5 flex-shrink-0 p-3 bg-gray-100 rounded-md">
+            <Image
+              src="https://links.papareact.com/23l"
+              layout="fill"
+              objectFit="contain"
+              alt=""
+            />
+          </div>
+          <p className=" text-gray-400">Sign In</p>
+        </div>
+      )}
     </header>
   );
 };
+
 export default Header;
