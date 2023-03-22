@@ -6,13 +6,18 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.10",
     "@heroicons/react": "^2.0.16",
+    "graphql": "^16.6.0",
     "graphql-request": "^5.2.0",
     "heroicons-react": "^1.4.1",
     "next": "latest",
     "next-auth": "^4.20.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.7",
+    "react-hot-toast": "^2.4.0",
+    "stepzen": "^0.29.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
