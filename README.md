@@ -1,4 +1,4 @@
-# Reddit Clone : with Nextjs & Typescript , Tailwind CSS and GraphQL  🌟
+# Reddit Clone : with Nextjs & Typescript , Tailwind CSS and GraphQL (not_completed) 🌟
 
 
 # Next.js + Tailwind CSS Example
